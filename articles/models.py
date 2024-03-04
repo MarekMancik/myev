@@ -9,7 +9,7 @@ class Author(models.Model):
         return self.name
 
 class Article(models.Model):
-    id = models.AutoField(primary_key=True, max_length=10)
+    id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=50)
     content = models.TextField()
     image = models.ImageField(upload_to='images/', name=None, width_field=500, height_field=400)
