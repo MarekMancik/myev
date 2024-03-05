@@ -17,8 +17,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from mainapp import views
+from django.urls.conf import include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index, name='index'),
+    path('tinymce/', include('tinymce.urls')),
+    path('', include('article.ulrs')),
 ]
