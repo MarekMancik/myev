@@ -1,12 +1,14 @@
 from django.db import models
+from tinymce.models import HTMLField
+
 
 # Create your models here.
 class Author(models.Model):
     name = models.CharField(max_length=100)
-    email = models.EmailField()
+    remark = HTMLField(default="Napiš něco o sobě")
 
-    def __str__(self):
-        return self.name
+    # def __str__(self):
+    #     return self.name
 
 class Article(models.Model):
     id = models.AutoField(primary_key=True)
@@ -39,3 +41,4 @@ class Tag(models.Model):
 
     def __str__(self):
         return self.name
+
