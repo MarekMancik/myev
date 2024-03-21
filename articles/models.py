@@ -4,22 +4,23 @@ from ckeditor.fields import RichTextField
 
 # Create your models here.
 class Author(models.Model):
-    name = models.CharField(max_length=100)
-    remark = RichTextField(null=True, blank=True)
+    name = models.CharField(max_length=100, blank=True)
+    remark = models.CharField(max_length=100)
 
-
+    def __str__(self):
+        return self.name
 
 class Article(models.Model):
     id = models.AutoField(primary_key=True)
-    title = models.CharField(max_length=50)
-    content = models.TextField()
-    image = models.ImageField(upload_to='images/', name=None, width_field=500, height_field=400)
-    source = models.CharField(max_length=100)
-    created_at =models.DateTimeField(auto_now_add=True)
+    title = models.CharField(max_length=100, blank=True)
+    content = RichTextField(null=True, blank=True)
+    image = models.ImageField(upload_to='images/', blank=True)
+    source = models.CharField(max_length=100, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
     author = models.ForeignKey(Author, on_delete=models.DO_NOTHING)
     CATEGORY_CHOICES = [
         ("Home", "Home"),
-        ("EV", "Eletroauta"),
+        ("EV", "Elektroauta"),
         ("Tesla", "Tesla"),
         ("C-EV", "Čínské EV"),
         ("EU-EV", "Evropské EV"),
@@ -33,10 +34,10 @@ class Article(models.Model):
         ("Others", "Jiné")
     ]
     category = models.CharField(max_length=20, choices=CATEGORY_CHOICES)
-    tags = models.ManyToManyField('Tag', related_name='articles')
+    # tags = models.ManyToManyField('Tag', related_name='articles')
 
-
-
+    def __str__(self):
+        return self.title
 
 
 class Tag(models.Model):
@@ -44,4 +45,3 @@ class Tag(models.Model):
 
     def __str__(self):
         return self.name
-
